@@ -1,0 +1,85 @@
+{
+    // スペルカードに含まれる情報
+    "SpellCard": {
+        // 基本情報
+        "BasicData": {
+            "name": "Spell Card", // スペルカード名
+            "ModelID": 0, // 3D モデル ID
+            "SpellCardType": 0, // スペルカードの種類
+            "MovementType": 0, // 移動タイプ
+            "ChargeTime": 0, // チャージ時間
+            "ReloadTime": 0, // リロード時間
+            "Power": 10, // 威力
+            "MaxAmmo": 3, // 最大弾数
+            "IsTargeting": false, // 相手を向いた状態で行使するかどうか
+            "InitialPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            }, // 初期位置
+            "BurstCount": 1, // 一度に発射する弾数
+            "InitialVelocity": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                }
+            ], // 初期移動ベクトル
+            "CastTime": 0, // 詠唱時間
+            "WaitForReturn": false, // 弾が戻ってくるのを待つかどうか
+            "TravelDistance": 0, // プレイヤーの移動距離
+            "IsTeleporting": false, // テレポートするかどうか
+            "CooldownTime": 0 // クールダウン時間
+        },
+        // アニメーション情報
+        "AnimationData": {
+            "animationName": "", // アニメーション名
+            "animationSpeed": 1.0 // アニメーション速度
+        }
+    },
+    // スペルカードの弾単体の情報
+    "SpellProjectile": {
+        "ActiveDuration": 0, // 有効時間
+        "InitialSpawnDelay": 0, // 初期スポーン遅延
+        "IsProjectileKnockback": false, // 弾同士でノックバックするかどうか
+        "InitialVelocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "OpponentStaggerLevel": 0, // 相手の怯みレベル
+        // 移動関連
+        "Movement": {
+            "Acceleration": 0, // 加速度
+            "MaxAcceleration": 0, // 最大加速度
+            "MaxRangeDistance": 0 // 最大移動距離
+        },
+        // 弾の強度関連
+        "Strength": {
+            "MaxStrength": 1, // 最大強度
+            "StrengthReduction": 0 // 強度減少値
+        },
+        // 弾の当たり判定関連
+        "Collision": {
+            "Radius": 0, // 当たり判定半径
+            "Expansion": 0 // 当たり判定拡張
+        },
+        "HomingTargetPosition": {
+            "DistanceRatio": 0, // 距離比率
+            "MaxDistance": 0, // 最大距離
+            "Attempts": 0, // 試行回数
+            "PauseDuration": 0, // 一時停止時間
+            "PauseEffectiveAttempts": 0 // 一時停止有効試行回数
+        }
+    }
+}
