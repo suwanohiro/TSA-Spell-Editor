@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     initialVelocity: InitialVelocitys,  // 初期移動ベクトル (リスト)
                     burstInterval: burstIntervals,  // 弾の発射間隔 (リスト)
                     castTime: getDataID.floatData("castTime"),  // キャスト時間
-                    waitForReturn: getDataID.checkBoxData("waitForReturn"),  // 弾が戻ってくるのを待つかどうか
+                    isWaitForReturn: getDataID.checkBoxData("waitForReturn"),  // 弾が戻ってくるのを待つかどうか
                     travelDistance: getDataID.floatData("travelDistance"),  // 移動距離
                     isTeleporting: getDataID.checkBoxData("isTeleporting"),  // テレポートするかどうか
                     cooldownTime: getDataID.floatData("cooldownTime"),  // クールダウン時間
@@ -186,22 +186,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     strengthReduction: getDataID.floatData("strengthReduction"), // 強度減衰
 
                     // ----- 当たり判定関連 -----
-                    radius: getDataID.floatData("radius"), // 半径
-                    expansion: getDataID.floatData("expansion"), // 拡大率
+                    colliderRadius: getDataID.floatData("radius"), // 半径
+                    colliderExpansion: getDataID.floatData("expansion"), // 拡大率
 
                     // ----- 未分類 -----
                     activeDuration: getDataID.floatData("activeDuration"), // 有効時間
                     initialSpawnDelay: getDataID.floatData("initialSpawnDelay"), // 初期生成遅延
                     isProjectileKnockback: getDataID.checkBoxData("isProjectileKnockback"), // 弾がノックバックするかどうか
-                    opponentStaggerLevel: getDataID.intData("opponentStaggerLevel"), // 相手の怯み度
+                    staggerLevel: getDataID.intData("opponentStaggerLevel"), // 相手の怯み度
 
                     // ----- 追尾判定位置関連 -----
-                    distanceRatio: getDataID.floatData("distanceRatio"), // 距離比率
-                    maxDistance: getDataID.floatData("maxDistance"), // 最大距離
-                    attempts: getDataID.intData("attempts"), // 試行回数
+                    attemptsDistanceRatio: getDataID.floatData("distanceRatio"), // 距離比率
+                    attemptsMaxDistance: getDataID.floatData("maxDistance"), // 最大距離
+                    attemptsCount: getDataID.intData("attempts"), // 試行回数
                     attemptsInterval: getDataID.floatData("attemptsInterval"), // 試行間隔
-                    pauseDuration: getDataID.floatData("pauseDuration"), // 一時停止時間
-                    pauseEffectiveAttempts: getDataID.intData("pauseEffectiveAttempts"), // 一時停止有効試行回数
+                    attemptsPauseDuration: getDataID.floatData("pauseDuration"), // 一時停止時間
+                    attemptsPauseCount: getDataID.intData("pauseEffectiveAttempts"), // 一時停止有効試行回数
                 }
             }
         };
