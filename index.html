@@ -115,12 +115,13 @@
                         <td><input type="number" id="maxAmmo" name="maxAmmo" value="1" min="1" max="99"></td>
                     </tr>
                     <tr>
-                        <td><label for="isTargeting">相手を向いた状態で行使するかどうか</label></td>
-                        <td class="checkbox-label">
-                            <label>
-                                <input type="checkbox" id="isTargeting" name="isTargeting">
-                                <span id="isTargetingText">false</span>
-                            </label>
+                        <td><label for="stopMovement">足を止めるか</label></td>
+                        <td>
+                            <select id="stopMovement" name="stopMovement">
+                                <option value="0">足を止めない</option>
+                                <option value="1">常時足を止める</option>
+                                <option value="2">後ろを向いている時だけ足を止める</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

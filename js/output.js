@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         x: parseFloat(formData.get('initialPositionX')),
                         y: parseFloat(formData.get('initialPositionY')),
                         z: parseFloat(formData.get('initialPositionZ'))
-                    }
+                    },
+                    StopMovement: parseInt(formData.get('stopMovement'))
                 },
                 ProjectileData: {
                     Power: parseInt(formData.get('power')),
@@ -93,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (input.type === 'checkbox') {
                             input.checked = jsonData.SpellCard.BasicData[key];
                             input.nextElementSibling.textContent = jsonData.SpellCard.BasicData[key] ? 'true' : 'false';
+                        } else if (input.tagName === 'SELECT') {
+                            input.value = jsonData.SpellCard.BasicData[key];
                         } else {
                             input.value = jsonData.SpellCard.BasicData[key];
                         }

@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (input.type === 'checkbox') {
                             input.checked = jsonData.SpellCard.BasicData[key];
                             input.nextElementSibling.textContent = jsonData.SpellCard.BasicData[key] ? 'true' : 'false';
+                        } else if (input.tagName === 'SELECT') {
+                            input.value = jsonData.SpellCard.BasicData[key];
                         } else {
                             input.value = jsonData.SpellCard.BasicData[key];
                         }
