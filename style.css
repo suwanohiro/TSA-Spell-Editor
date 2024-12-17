@@ -249,3 +249,7 @@ button:hover {
 .xyz-input input {
     width: calc(33.33% - 6.67px);
 }
+
+.intervalInputDiv .burstInterval {
+    width: 87.5%;
+}

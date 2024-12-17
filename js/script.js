@@ -192,12 +192,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return Math.min(Math.max(value, min), max);
     }
 
-    // 一度に発射する弾数の値に応じて初期移動ベクトルの入力項目数を動的に変更する
+    // 一度に発射する弾数の値に応じて初期移動ベクトルと発射間隔の入力項目数を動的に変更する
     document.getElementById('burstCount').addEventListener('input', function (event) {
         const burstCount = clamp(parseInt(event.target.value), event.target.min, event.target.max);
         event.target.value = burstCount; // 入力値を範囲内に修正
-        const container = document.getElementById('initialVelocityContainer');
-        container.innerHTML = ''; // 既存の入力項目をクリア
+        const velocityContainer = document.getElementById('initialVelocityContainer');
+        const intervalContainer = document.getElementById('burstIntervalContainer');
+        velocityContainer.innerHTML = ''; // 既存の入力項目をクリア
+        intervalContainer.innerHTML = ''; // 既存の入力項目をクリア
 
         for (let i = 0; i < burstCount; i++) {
             const div = document.createElement('div');
@@ -226,7 +228,28 @@ document.addEventListener('DOMContentLoaded', function () {
             div.appendChild(inputY);
             div.appendChild(inputZ);
 
-            container.appendChild(div);
+            velocityContainer.appendChild(div);
+
+            const intervalInputDiv = document.createElement('div');
+            intervalInputDiv.classList.add("intervalInputDiv");
+
+
+            const span = document.createElement('span');
+            span.innerHTML = `[&nbsp;${(i + 1).toString().padStart(burstCount.toString().length, "0")}&nbsp;]&nbsp;`;
+
+            const intervalInput = document.createElement('input');
+            intervalInput.type = 'number';
+            intervalInput.id = `burstInterval${i}`;
+            intervalInput.name = `burstInterval${i}`;
+            intervalInput.classList.add("burstInterval");
+            intervalInput.placeholder = '発射間隔';
+            intervalInput.step = '0.01';
+            intervalInput.min = '0';
+            intervalInput.value = '0';
+
+            intervalInputDiv.appendChild(span);
+            intervalInputDiv.appendChild(intervalInput);
+            intervalContainer.appendChild(intervalInputDiv);
         }
     });
 
