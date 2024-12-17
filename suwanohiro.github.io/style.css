@@ -1,0 +1,251 @@
+* {
+    user-select: none;
+}
+
+body {
+    font-family: 'メイリオ', 'Consolas', sans-serif;
+    background-color: #e0f7fa;
+    /* lightblue系の背景色 */
+    color: #01579b;
+    /* 濃い青色 */
+    margin: 0;
+    padding: 0;
+}
+
+details {
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.menu-bar {
+    background-color: #0288d1;
+    /* lightblue系のメニュー背景色 */
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu-bar .menu-item {
+    position: relative;
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.menu-bar .menu-item:hover {
+    background-color: #03a9f4;
+    /* lightblue系のホバー色 */
+}
+
+.menu-bar .submenu {
+    display: none;
+    position: absolute;
+    background-color: #0288d1;
+    /* lightblue系のサブメニュー背景色 */
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    top: 37.5px;
+    left: 0;
+    border-radius: 4px;
+    white-space: nowrap;
+    /* Prevent line breaks */
+}
+
+.menu-bar .submenu li {
+    margin-bottom: 10px;
+}
+
+.menu-bar .submenu li div {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.menu-bar .submenu li div:hover {
+    background-color: #03a9f4;
+    /* lightblue系のホバー色 */
+}
+
+.container {
+    max-width: 800px;
+    margin: 100px auto 50px;
+    /* Adjusted margin to account for fixed menu */
+    padding: 20px;
+    background-color: #b3e5fc;
+    /* lightblue系のコンテナ背景色 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1,
+h2 {
+    color: #01579b;
+    /* 濃い青色 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #0288d1;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #0288d1;
+    /* lightblue系のボーダー色 */
+    height: 10vh;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #01579b;
+    /* 濃い青色 */
+}
+
+input[type="text"],
+input[type="number"],
+select,
+option {
+    width: calc(100% - 24px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #0288d1;
+    /* lightblue系のボーダー色 */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #e1f5fe;
+    /* lightblue系の入力背景色 */
+    color: #01579b;
+    /* 濃い青色 */
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label span {
+    margin-left: 10px;
+    color: #01579b;
+    /* 濃い青色 */
+}
+
+button {
+    background-color: #0288d1;
+    /* lightblue系のボタン背景色 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+button:hover {
+    background-color: #03a9f4;
+    /* lightblue系のホバー色 */
+}
+
+.file-input {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.file-input label {
+    margin-right: 10px;
+}
+
+.custom-file-input {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.custom-file-input input[type="file"] {
+    display: none;
+}
+
+.custom-file-input button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0288d1;
+    /* lightblue系のボタン背景色 */
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.custom-file-input button:hover {
+    background-color: #03a9f4;
+    /* lightblue系のホバー色 */
+}
+
+.file-input-table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.file-input-table td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.file-input-table label {
+    width: 200px;
+}
+
+.file-input-table .custom-file-input,
+.file-input-table button {
+    vertical-align: middle;
+}
+
+.form-sections {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 1200px) {
+    .form-sections {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #spellCardForm,
+    #bulletInfoForm {
+        width: 100%;
+    }
+}
+
+.xyz-input {
+    display: flex;
+    gap: 10px;
+}
+
+.xyz-input input {
+    width: calc(33.33% - 6.67px);
+}

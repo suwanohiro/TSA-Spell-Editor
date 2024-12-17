@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spell Card Data Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./js/script.js"></script>
+    <script src="./js/output.js"></script>
+    <script src="./js/input.js"></script>
+</head>
+
+<body>
+    <div class="menu-bar">
+        <ul>
+            <li class="menu-item" id="fileMenu">ファイル
+                <ul class="submenu">
+                    <li>
+                        <div id="reload">新規作成 (Ctrl + R)</div>
+                    </li>
+                    <li>
+                        <div id="openJson" accesskey="o">JSONファイルを開く (Ctrl + O)</div>
+                    </li>
+                    <hr>
+                    <li>
+                        <div id="openHpp" accesskey="m">ModelID.hpp を開く (Ctrl + M)</div>
+                    </li>
+                    <li>
+                        <div id="deleteHpp">読込済 Model ID 情報を削除</div>
+                    </li>
+                    <hr>
+                    <li>
+                        <div id="save" accesskey="s">保存 (Ctrl + S)</div>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item" id="viewMenu">表示
+                <ul class="submenu">
+                    <li>
+                        <div id="showModelIDsMenu">読込済 Model IDを表示</div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <input type="file" id="loadJson" accept=".json">
+    <input type="file" id="loadHpp" accept=".hpp">
+    <div class="container">
+        <h1>Spell Card Data Form</h1>
+        <form id="spellCardForm">
+            <details>
+                <summary>
+                    <b>スペルカードの基本情報</b>
+                </summary>
+                <table>
+                    <tr>
+                        <td><label for="name">スペルカード名</label></td>
+                        <td><input type="text" id="name" name="name" placeholder="ミシカルリング"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="englishName">スペルカード名 (英名)</label></td>
+                        <td><input type="text" id="englishName" name="englishName" placeholder="Mythical Ring"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="modelID">3D モデル ID</label></td>
+                        <td>
+                            <select id="modelID" name="modelID">
+                                <option>ModelID.hpp を読み込んでください</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="spellCardType">スペルカードの種類</label></td>
+                        <td>
+                            <select id="spellCardType" name="spellCardType">
+                                <optgroup label="タイプ依存種"></optgroup>
+                                <option value="0">[ NS ] ノーマルショット</option>
+                                <option value="1">[ CS ] チャージショット</option>
+                                <option value="2">[ SP ] 通常スペルカード</option>
+                                <option value="3">[ CSP ] チャージスペルカード</option>
+                                <optgroup></optgroup>
+                                <optgroup label="共通種"></optgroup>
+                                <option value="4">[ EX ] エクストラスペルカード</option>
+                                <optgroup></optgroup>
+                                <optgroup label="共通種 (テンション依存)"></optgroup>
+                                <option value="5">[ HT ] ハイテンションスペルカード</option>
+                                <option value="6">[ CT ] クライマックススペルカード</option>
+                                <option value="7">[ CF ] クライマックススペルカード フィナーレ</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="movementType">スペルタイプ</label></td>
+                        <td>
+                            <select id="movementType" name="movementType">
+                                <option value="type1">Type 1</option>
+                                <option value="type2">Type 2</option>
+                                <option value="type3">Type 3</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="chargeTime">チャージ時間</label></td>
+                        <td><input type="number" id="chargeTime" name="chargeTime" step="0.1" placeholder="チャージ時間なし: 0"
+                                value="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="reloadTime">リロード時間</label></td>
+                        <td><input type="number" id="reloadTime" name="reloadTime" step="0.1" value="0"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="maxAmmo">最大弾数</label></td>
+                        <td><input type="number" id="maxAmmo" name="maxAmmo" value="1" min="1" max="99"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="isTargeting">相手を向いた状態で行使するかどうか</label></td>
+                        <td class="checkbox-label">
+                            <label>
+                                <input type="checkbox" id="isTargeting" name="isTargeting">
+                                <span id="isTargetingText">false</span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="initialPosition">初期位置</label></td>
+                        <td>
+                            <div class="xyz-input">
+                                <input type="number" id="initialPositionX" name="initialPositionX" placeholder="X"
+                                    value="0">
+                                <input type="number" id="initialPositionY" name="initialPositionY" placeholder="Y"
+                                    value="0">
+                                <input type="number" id="initialPositionZ" name="initialPositionZ" placeholder="Z"
+                                    value="0">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="burstCount">一度に発射する弾数</label></td>
+                        <td><input type="number" id="burstCount" name="burstCount" min="1" max="100" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="initialVelocity">初期移動ベクトル</label></td>
+                        <td id="initialVelocityContainer">
+                            <div class="xyz-input">
+                                [&nbsp;1&nbsp;]&nbsp;
+                                <input type="number" id="initialVelocityX0" name="initialVelocityX0" placeholder="X"
+                                    value="0">
+                                <input type="number" id="initialVelocityY0" name="initialVelocityY0" placeholder="Y"
+                                    value="0">
+                                <input type="number" id="initialVelocityZ0" name="initialVelocityZ0" placeholder="Z"
+                                    value="0">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="castTime">詠唱時間</label></td>
+                        <td><input type="number" id="castTime" name="castTime" step="0.1" value="0" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="waitForReturn">弾の戻りを待機するかどうか</label></td>
+                        <td class="checkbox-label">
+                            <label>
+                                <input type="checkbox" id="waitForReturn" name="waitForReturn">
+                                <span id="waitForReturnText">false</span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="travelDistance">プレイヤー自身の移動距離</label></td>
+                        <td><input type="number" id="travelDistance" name="travelDistance" step="0.1"
+                                placeholder="現世斬とかみたいな攻撃時の移動距離" value="0" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="isTeleporting">瞬間移動するかどうか</label></td>
+                        <td class="checkbox-label">
+                            <label>
+                                <input type="checkbox" id="isTeleporting" name="isTeleporting">
+                                <span id="isTeleportingText">false</span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="cooldownTime">クールタイム</label></td>
+                        <td><input type="number" id="cooldownTime" name="cooldownTime" step="0.1" min="0" value="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="animationName">再生アニメーション名</label></td>
+                        <td><input type="text" id="animationName" name="animationName" placeholder="アニメーション名"
+                                value="none">
+                        </td>
+                    </tr>
+                </table>
+            </details>
+
+            <details>
+                <summary>
+                    <b>スペルカードで行使される弾の情報</b>
+                </summary>
+
+                <details open>
+                    <summary>
+                        <b>移動関連</b>
+                    </summary>
+
+                    <table>
+                        <tr>
+                            <td><label for="power">威力</label></td>
+                            <td><input type="number" id="power" name="power" placeholder="火力" value="0" min="0"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="acceleration">加速度</label></td>
+                            <td><input type="number" id="acceleration" name="acceleration" step="0.1" min="0" value="0">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="maxSpeed">最大移動速度</label></td>
+                            <td><input type="number" id="maxSpeed" name="maxSpeed" step="0.1" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="maxRange">最大移動距離 (射程距離)</label></td>
+                            <td><input type="number" id="maxRange" name="maxRange" step="0.1" min="0" value="0"></td>
+                        </tr>
+                    </table>
+                </details>
+
+                <details open>
+                    <summary>
+                        <b>弾の強度関連</b>
+                    </summary>
+
+                    <table>
+                        <tr>
+                            <td><label for="strength">弾の強度</label></td>
+                            <td><input type="number" id="strength" name="strength" step="0.1" min="1" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="strengthReduction">弾の強度削り値</label></td>
+                            <td><input type="number" id="strengthReduction" name="strengthReduction" step="0.1" min="0"
+                                    value="0"></td>
+                        </tr>
+                    </table>
+                </details>
+
+                <details open>
+                    <summary>
+                        <b>当たり判定関連</b>
+                    </summary>
+
+                    <table>
+                        <tr>
+                            <td><label for="radius">当たり判定の半径</label></td>
+                            <td><input type="number" id="radius" name="radius" step="0.1" value="0" min="0"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="expansion">当たり判定の膨張値</label></td>
+                            <td><input type="number" id="expansion" name="expansion" step="0.1" value="0" min="0"
+                                    placeholder="ミシャグジ様とか"></td>
+                        </tr>
+                    </table>
+                </details>
+
+                <details open>
+                    <summary>
+                        <b>未分類</b>
+                    </summary>
+
+                    <table>
+                        <tr>
+                            <td><label for="activeDuration">有効時間</label></td>
+                            <td><input type="number" id="activeDuration" name="activeDuration" step="0.1" min="1"
+                                    value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="initialSpawnDelay">初期生成時 移動待機時間</label></td>
+                            <td><input type="number" id="initialSpawnDelay" name="initialSpawnDelay" step="0.1"
+                                    value="0" min="0"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="isProjectileKnockback">弾同士の押し戻しがあるかどうか</label></td>
+                            <td class="checkbox-label">
+                                <label>
+                                    <input type="checkbox" id="isProjectileKnockback" name="isProjectileKnockback">
+                                    <span id="isProjectileKnockbackText">false</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="opponentStaggerLevel">相手の怯み度</label></td>
+                            <td>
+                                <select id="opponentStaggerLevel" name="opponentStaggerLevel" class="browser-default">
+                                    <option value="none">怯み無し</option>
+                                    <option value="low">低</option>
+                                    <option value="medium">中</option>
+                                    <option value="high">高</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+                </details>
+
+                <hr>
+
+                <details open>
+                    <summary>
+                        <b>追尾判定位置関連</b>
+                    </summary>
+
+                    <table>
+                        <tr>
+                            <td><label for="distanceRatio">追尾判定位置 (距離による割合)</label></td>
+                            <td><input type="number" id="distanceRatio" name="distanceRatio" step="0.01" min="0" max="1"
+                                    value="0.2" placeholder="0: キャラと同位置 / 1: ターゲットと同位置"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="maxDistance">追尾判定位置 (上限距離)</label></td>
+                            <td><input type="number" id="maxDistance" name="maxDistance" step="0.1" placeholder="進んだ距離"
+                                    min="1" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="attempts">追尾判定回数</label></td>
+                            <td><input type="number" id="attempts" name="attempts" min="1" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="pauseDuration">追尾判定時一時停止時間</label></td>
+                            <td><input type="number" id="pauseDuration" name="pauseDuration" step="0.1" value="0"
+                                    min="0">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="pauseEffectiveAttempts">追尾判定時一時停止有効回数</label></td>
+                            <td><input type="number" id="pauseEffectiveAttempts" name="pauseEffectiveAttempts" min="0"
+                                    value="0"></td>
+                        </tr>
+                    </table>
+                </details>
+            </details>
+            <br>
+            <button type="submit" class="btn waves-effect waves-light" id="Submit">保存</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const span = checkbox.nextElementSibling;
+                checkbox.addEventListener('change', function () {
+                    span.textContent = checkbox.checked ? 'true' : 'false';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
