@@ -49,7 +49,7 @@
     <div class="container">
         <h1>Spell Card Data Form</h1>
         <form id="spellCardForm">
-            <details>
+            <details open>
                 <summary>
                     <b>スペルカードの基本情報</b>
                 </summary>
@@ -91,24 +91,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="movementType">スペルタイプ</label></td>
+                        <td><label for="movementType">移動タイプ</label></td>
                         <td>
                             <select id="movementType" name="movementType">
-                                <option value="type1">Type 1</option>
-                                <option value="type2">Type 2</option>
-                                <option value="type3">Type 3</option>
+                                <option value="0">直線移動</option>
+                                <option value="1">ブーメラン移動</option>
+                                <option value="2">子弾幕作成 (神徳等)</option>
+                                <option value="3">ターゲット包囲 (弾幕結界等)</option>
+                                <option value="4">ターゲット周回 (遠隔等)</option>
+                                <option value="5">マニュアル移動 (絡繰等)</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="chargeTime">チャージ時間</label></td>
-                        <td><input type="number" id="chargeTime" name="chargeTime" step="0.1" placeholder="チャージ時間なし: 0"
+                        <td><input type="number" id="chargeTime" name="chargeTime" step="0.01" placeholder="チャージ時間なし: 0"
                                 value="0">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="reloadTime">リロード時間</label></td>
-                        <td><input type="number" id="reloadTime" name="reloadTime" step="0.1" value="0"></td>
+                        <td><input type="number" id="reloadTime" name="reloadTime" step="0.01" value="0"></td>
                     </tr>
                     <tr>
                         <td><label for="maxAmmo">最大弾数</label></td>
@@ -128,12 +131,12 @@
                         <td><label for="initialPosition">初期位置</label></td>
                         <td>
                             <div class="xyz-input">
-                                <input type="number" id="initialPositionX" name="initialPositionX" placeholder="X"
-                                    value="0">
-                                <input type="number" id="initialPositionY" name="initialPositionY" placeholder="Y"
-                                    value="0">
-                                <input type="number" id="initialPositionZ" name="initialPositionZ" placeholder="Z"
-                                    value="0">
+                                <input type="number" id="initialPositionX" class="initialPosition"
+                                    name="initialPositionX" placeholder="X" value="0">
+                                <input type="number" id="initialPositionY" class="initialPosition"
+                                    name="initialPositionY" placeholder="Y" value="0">
+                                <input type="number" id="initialPositionZ" class="initialPosition"
+                                    name="initialPositionZ" placeholder="Z" value="0">
                             </div>
                         </td>
                     </tr>
@@ -146,12 +149,12 @@
                         <td id="initialVelocityContainer">
                             <div class="xyz-input">
                                 [&nbsp;1&nbsp;]&nbsp;
-                                <input type="number" id="initialVelocityX0" name="initialVelocityX0" placeholder="X"
-                                    value="0">
-                                <input type="number" id="initialVelocityY0" name="initialVelocityY0" placeholder="Y"
-                                    value="0">
-                                <input type="number" id="initialVelocityZ0" name="initialVelocityZ0" placeholder="Z"
-                                    value="0">
+                                <input type="number" id="initialVelocityX0" class="initialVelocity"
+                                    name="initialVelocityX0" placeholder="X" value="0">
+                                <input type="number" id="initialVelocityY0" class="initialVelocity"
+                                    name="initialVelocityY0" placeholder="Y" value="0">
+                                <input type="number" id="initialVelocityZ0" class="initialVelocity"
+                                    name="initialVelocityZ0" placeholder="Z" value="0">
                             </div>
                         </td>
                     </tr>
@@ -160,14 +163,14 @@
                         <td id="burstIntervalContainer">
                             <div class="intervalInputDiv">
                                 <span>[&nbsp;1&nbsp;]&nbsp;</span>
-                                <input type="number" id="burstInterval0" name="burstInterval0" class="burstInterval"
-                                    placeholder="発射間隔" value="0">
+                                <input type="number" id="burstInterval0" class="burstInterval" name="burstInterval0"
+                                    class="burstInterval" placeholder="発射間隔" value="0">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="castTime">詠唱時間</label></td>
-                        <td><input type="number" id="castTime" name="castTime" step="0.1" value="0" min="0"></td>
+                        <td><input type="number" id="castTime" name="castTime" step="0.01" value="0" min="0"></td>
                     </tr>
                     <tr>
                         <td><label for="waitForReturn">弾の戻りを待機するかどうか</label></td>
@@ -180,7 +183,7 @@
                     </tr>
                     <tr>
                         <td><label for="travelDistance">プレイヤー自身の移動距離</label></td>
-                        <td><input type="number" id="travelDistance" name="travelDistance" step="0.1"
+                        <td><input type="number" id="travelDistance" name="travelDistance" step="0.01"
                                 placeholder="現世斬とかみたいな攻撃時の移動距離" value="0" min="0"></td>
                     </tr>
                     <tr>
@@ -194,7 +197,7 @@
                     </tr>
                     <tr>
                         <td><label for="cooldownTime">クールタイム</label></td>
-                        <td><input type="number" id="cooldownTime" name="cooldownTime" step="0.1" min="0" value="0">
+                        <td><input type="number" id="cooldownTime" name="cooldownTime" step="0.01" min="0" value="0">
                         </td>
                     </tr>
                     <tr>
@@ -206,7 +209,7 @@
                 </table>
             </details>
 
-            <details>
+            <details open>
                 <summary>
                     <b>スペルカードで行使される弾の情報</b>
                 </summary>
@@ -223,16 +226,17 @@
                         </tr>
                         <tr>
                             <td><label for="acceleration">加速度</label></td>
-                            <td><input type="number" id="acceleration" name="acceleration" step="0.1" min="0" value="0">
+                            <td><input type="number" id="acceleration" name="acceleration" step="0.01" min="0"
+                                    value="0">
                             </td>
                         </tr>
                         <tr>
                             <td><label for="maxSpeed">最大移動速度</label></td>
-                            <td><input type="number" id="maxSpeed" name="maxSpeed" step="0.1" min="0" value="0"></td>
+                            <td><input type="number" id="maxSpeed" name="maxSpeed" step="0.01" min="0" value="0"></td>
                         </tr>
                         <tr>
                             <td><label for="maxRange">最大移動距離 (射程距離)</label></td>
-                            <td><input type="number" id="maxRange" name="maxRange" step="0.1" min="0" value="0"></td>
+                            <td><input type="number" id="maxRange" name="maxRange" step="0.01" min="0" value="0"></td>
                         </tr>
                     </table>
                 </details>
@@ -245,11 +249,11 @@
                     <table>
                         <tr>
                             <td><label for="strength">弾の強度</label></td>
-                            <td><input type="number" id="strength" name="strength" step="0.1" min="1" value="1"></td>
+                            <td><input type="number" id="strength" name="strength" step="0.01" min="1" value="1"></td>
                         </tr>
                         <tr>
                             <td><label for="strengthReduction">弾の強度削り値</label></td>
-                            <td><input type="number" id="strengthReduction" name="strengthReduction" step="0.1" min="0"
+                            <td><input type="number" id="strengthReduction" name="strengthReduction" step="0.01" min="0"
                                     value="0"></td>
                         </tr>
                     </table>
@@ -263,11 +267,11 @@
                     <table>
                         <tr>
                             <td><label for="radius">当たり判定の半径</label></td>
-                            <td><input type="number" id="radius" name="radius" step="0.1" value="0" min="0"></td>
+                            <td><input type="number" id="radius" name="radius" step="0.01" value="0" min="0"></td>
                         </tr>
                         <tr>
                             <td><label for="expansion">当たり判定の膨張値</label></td>
-                            <td><input type="number" id="expansion" name="expansion" step="0.1" value="0" min="0"
+                            <td><input type="number" id="expansion" name="expansion" step="0.01" value="0" min="0"
                                     placeholder="ミシャグジ様とか"></td>
                         </tr>
                     </table>
@@ -281,13 +285,13 @@
                     <table>
                         <tr>
                             <td><label for="activeDuration">有効時間</label></td>
-                            <td><input type="number" id="activeDuration" name="activeDuration" step="0.1" min="1"
+                            <td><input type="number" id="activeDuration" name="activeDuration" step="0.01" min="1"
                                     value="1">
                             </td>
                         </tr>
                         <tr>
                             <td><label for="initialSpawnDelay">初期生成時 移動待機時間</label></td>
-                            <td><input type="number" id="initialSpawnDelay" name="initialSpawnDelay" step="0.1"
+                            <td><input type="number" id="initialSpawnDelay" name="initialSpawnDelay" step="0.01"
                                     value="0" min="0"></td>
                         </tr>
                         <tr>
@@ -303,10 +307,10 @@
                             <td><label for="opponentStaggerLevel">相手の怯み度</label></td>
                             <td>
                                 <select id="opponentStaggerLevel" name="opponentStaggerLevel" class="browser-default">
-                                    <option value="none">怯み無し</option>
-                                    <option value="low">低</option>
-                                    <option value="medium">中</option>
-                                    <option value="high">高</option>
+                                    <option value="0">怯み無し</option>
+                                    <option value="1">低</option>
+                                    <option value="2">中</option>
+                                    <option value="3">高</option>
                                 </select>
                             </td>
                         </tr>
@@ -329,7 +333,7 @@
                         </tr>
                         <tr>
                             <td><label for="maxDistance">追尾判定位置 (上限距離)</label></td>
-                            <td><input type="number" id="maxDistance" name="maxDistance" step="0.1" placeholder="進んだ距離"
+                            <td><input type="number" id="maxDistance" name="maxDistance" step="0.01" placeholder="進んだ距離"
                                     min="1" value="1"></td>
                         </tr>
                         <tr>
@@ -337,8 +341,13 @@
                             <td><input type="number" id="attempts" name="attempts" min="1" value="1"></td>
                         </tr>
                         <tr>
+                            <td><label for="attemptsInterval">追尾判定間隔</label></td>
+                            <td><input type="number" id="attemptsInterval" name="attemptsInterval" min="1" value="1">
+                            </td>
+                        </tr>
+                        <tr>
                             <td><label for="pauseDuration">追尾判定時一時停止時間</label></td>
-                            <td><input type="number" id="pauseDuration" name="pauseDuration" step="0.1" value="0"
+                            <td><input type="number" id="pauseDuration" name="pauseDuration" step="0.01" value="0"
                                     min="0">
                             </td>
                         </tr>

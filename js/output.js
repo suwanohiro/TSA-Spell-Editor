@@ -1,3 +1,79 @@
+class getDataID {
+    static textData(ID) {
+        try {
+            return document.getElementById(ID).value;
+        }
+        catch (e) {
+            console.error(`ID: ${ID} がテキストではありません`);
+        }
+    }
+
+    static intData(ID) {
+        try {
+            return parseInt(document.getElementById(ID).value);
+        }
+        catch (e) {
+            console.error(`ID: ${ID} が整数ではありません`);
+        }
+    }
+
+    static floatData(ID) {
+        try {
+            return parseFloat(document.getElementById(ID).value);
+        }
+        catch (e) {
+            console.error(`ID: ${ID} が実数ではありません`);
+        }
+    }
+
+    static checkBoxData(ID) {
+        try {
+            return document.getElementById(ID).checked;
+        }
+        catch (e) {
+            console.error(`ID: ${ID} がチェックボックスではありません`);
+        }
+    }
+}
+
+class getDataClass {
+    static textData(className, index) {
+        try {
+            return document.getElementsByClassName(className)[index].value;
+        }
+        catch (e) {
+            console.error(`クラス名: ${className} がテキストではありません`);
+        }
+    }
+
+    static numberDataInt(className, index) {
+        try {
+            return parseInt(document.getElementsByClassName(className)[index].value);
+        }
+        catch (e) {
+            console.error(`クラス名: ${className} が整数ではありません`);
+        }
+    }
+
+    static numberDataFloat(className, index) {
+        try {
+            return parseFloat(document.getElementsByClassName(className)[index].value);
+        }
+        catch (e) {
+            console.error(`クラス名: ${className} が実数ではありません`);
+        }
+    }
+
+    static checkBoxData(className, index) {
+        try {
+            return document.getElementsByClassName(className)[index].checked;
+        }
+        catch (e) {
+            console.error(`クラス名: ${className} がチェックボックスではありません`);
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
@@ -23,44 +99,109 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let missingFields = [];
         requiredFields.forEach(field => {
-            if (!formData.get(field.id)) {
+            let missing = false;
+            if (!formData.get(field.id)) missing = true;
+
+            if (missing) {
+                const classArray = document.getElementsByClassName(field.id);
+
+                for (let cnt = 0; cnt < classArray.length; cnt++) {
+                    if (!formData.get(classArray[cnt].id)) {
+                        missing = true;
+                        break;
+                    }
+
+                    missing = false;
+                }
+            }
+
+            if (missing) {
                 missingFields.push(field.name);
+                console.error(`Missing field: ${field.name}`);
             }
         });
 
         if (missingFields.length > 0) {
             alert('以下の項目が未入力です:\n' + missingFields.join('\n'));
-            return;
+            const flg = confirm('未入力の項目をスキップしてもよろしいですか？');
+            if (!flg) return;
+            console.clear();
+        }
+
+        let InitialVelocitys = [];
+        let burstIntervals = [];
+        const initialVelocity = document.getElementsByClassName('initialVelocity');
+        const burstInterval = document.getElementsByClassName('burstInterval');
+
+        for (let cnt = 0; cnt < initialVelocity.length; cnt += 3) {
+            InitialVelocitys.push({
+                x: getDataClass.numberDataFloat('initialVelocity', 0),
+                y: getDataClass.numberDataFloat('initialVelocity', 1),
+                z: getDataClass.numberDataFloat('initialVelocity', 2)
+            });
+        }
+
+        for (let cnt = 0; cnt < burstInterval.length; cnt++) {
+            burstIntervals.push(getDataClass.numberDataFloat('burstInterval', cnt));
         }
 
         const jsonData = {
             SpellCard: {
+                // スペルカードの基本情報
                 BasicData: {
-                    name: formData.get('name'),
-                    englishName: formData.get('englishName'),
-                    ModelID: parseInt(formData.get('modelID')),
-                    CooldownTime: parseFloat(formData.get('cooldownTime')),
-                    AnimationName: formData.get('animationName'),
-                    InitialPosition: {
-                        x: parseFloat(formData.get('initialPositionX')),
-                        y: parseFloat(formData.get('initialPositionY')),
-                        z: parseFloat(formData.get('initialPositionZ'))
-                    },
-                    StopMovement: parseInt(formData.get('stopMovement'))
+                    name: getDataID.textData("name"),   // スペルカード名
+                    englishName: getDataID.textData("englishName"),  // 英語名
+                    modelID: getDataID.intData("modelID"),  // ModelID
+                    spellCardType: getDataID.intData("spellCardType"),  // スペルカードタイプ
+                    movementType: getDataID.intData("movementType"),  // 移動タイプ
+                    chargeTime: getDataID.floatData("chargeTime"),  // チャージ時間
+                    reloadTime: getDataID.floatData("reloadTime"),  // リロード時間
+                    maxAmmo: getDataID.intData("maxAmmo"),  // 最大弾数
+                    stopMovement: getDataID.checkBoxData("stopMovement"),  // 足を止めるかどうか
+                    initialPosition: {
+                        x: getDataClass.numberDataFloat('initialPosition', 0),
+                        y: getDataClass.numberDataFloat('initialPosition', 1),
+                        z: getDataClass.numberDataFloat('initialPosition', 2)
+                    },  // 初期位置
+                    burstCount: getDataID.intData("burstCount"),  // 一度に発射する弾数
+                    initialVelocity: InitialVelocitys,  // 初期移動ベクトル (リスト)
+                    burstInterval: burstIntervals,  // 弾の発射間隔 (リスト)
+                    castTime: getDataID.floatData("castTime"),  // キャスト時間
+                    waitForReturn: getDataID.checkBoxData("waitForReturn"),  // 弾が戻ってくるのを待つかどうか
+                    travelDistance: getDataID.floatData("travelDistance"),  // 移動距離
+                    isTeleporting: getDataID.checkBoxData("isTeleporting"),  // テレポートするかどうか
+                    cooldownTime: getDataID.floatData("cooldownTime"),  // クールダウン時間
+                    animationName: getDataID.textData("animationName"), // アニメーション名
                 },
+                // スペルカードで行使される弾の情報
                 ProjectileData: {
-                    Power: parseInt(formData.get('power')),
-                    Acceleration: parseFloat(formData.get('acceleration')),
-                    MaxSpeed: parseFloat(formData.get('maxSpeed')),
-                    InitialVelocity: {
-                        x: parseFloat(formData.get('initialVelocityX')),
-                        y: parseFloat(formData.get('initialVelocityY')),
-                        z: parseFloat(formData.get('initialVelocityZ'))
-                    },
-                    IsProjectileKnockback: formData.get('isProjectileKnockback') === 'on',
-                    OpponentStaggerLevel: formData.get('opponentStaggerLevel'),
-                    DistanceRatio: parseFloat(formData.get('distanceRatio')),
-                    MaxDistance: parseFloat(formData.get('maxDistance'))
+                    // ----- 移動関連 -----
+                    power: getDataID.intData("power"), // 威力
+                    acceleration: getDataID.floatData("acceleration"), // 加速度
+                    maxSpeed: getDataID.floatData("maxSpeed"), // 最大速度
+                    maxRange: getDataID.floatData("maxRange"), // 最大射程
+
+                    // ----- 弾の強度関連 -----
+                    strength: getDataID.floatData("strength"), // 強度
+                    strengthReduction: getDataID.floatData("strengthReduction"), // 強度減衰
+
+                    // ----- 当たり判定関連 -----
+                    radius: getDataID.floatData("radius"), // 半径
+                    expansion: getDataID.floatData("expansion"), // 拡大率
+
+                    // ----- 未分類 -----
+                    activeDuration: getDataID.floatData("activeDuration"), // 有効時間
+                    initialSpawnDelay: getDataID.floatData("initialSpawnDelay"), // 初期生成遅延
+                    isProjectileKnockback: getDataID.checkBoxData("isProjectileKnockback"), // 弾がノックバックするかどうか
+                    opponentStaggerLevel: getDataID.intData("opponentStaggerLevel"), // 相手の怯み度
+
+                    // ----- 追尾判定位置関連 -----
+                    distanceRatio: getDataID.floatData("distanceRatio"), // 距離比率
+                    maxDistance: getDataID.floatData("maxDistance"), // 最大距離
+                    attempts: getDataID.intData("attempts"), // 試行回数
+                    attemptsInterval: getDataID.floatData("attemptsInterval"), // 試行間隔
+                    pauseDuration: getDataID.floatData("pauseDuration"), // 一時停止時間
+                    pauseEffectiveAttempts: getDataID.intData("pauseEffectiveAttempts"), // 一時停止有効試行回数
                 }
             }
         };

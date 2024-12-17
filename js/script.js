@@ -143,8 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('openHpp').click();
         }
 
-        document.title = `${event.ctrlKey} && ${event.key}`;
-
         if (event.ctrlKey && event.key === 'n') {
             alert('新規作成');
             event.preventDefault();
@@ -211,18 +209,24 @@ document.addEventListener('DOMContentLoaded', function () {
             inputX.id = `initialVelocityX${i}`;
             inputX.name = `initialVelocityX${i}`;
             inputX.placeholder = 'X';
+            inputX.value = "0";
+            inputX.classList.add("initialVelocity");
 
             const inputY = document.createElement('input');
             inputY.type = 'number';
             inputY.id = `initialVelocityY${i}`;
             inputY.name = `initialVelocityY${i}`;
             inputY.placeholder = 'Y';
+            inputY.value = "0";
+            inputY.classList.add("initialVelocity");
 
             const inputZ = document.createElement('input');
             inputZ.type = 'number';
             inputZ.id = `initialVelocityZ${i}`;
             inputZ.name = `initialVelocityZ${i}`;
             inputZ.placeholder = 'Z';
+            inputZ.value = "0";
+            inputZ.classList.add("initialVelocity");
 
             div.appendChild(inputX);
             div.appendChild(inputY);
