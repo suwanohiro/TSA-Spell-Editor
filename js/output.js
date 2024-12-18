@@ -28,7 +28,7 @@ class getDataID {
 
     static checkBoxData(ID) {
         try {
-            return document.getElementById(ID).checked;
+            return Number(document.getElementById(ID).checked);
         }
         catch (e) {
             console.error(`ID: ${ID} がチェックボックスではありません`);
@@ -66,7 +66,7 @@ class getDataClass {
 
     static checkBoxData(className, index) {
         try {
-            return document.getElementsByClassName(className)[index].checked;
+            return Number(document.getElementsByClassName(className)[index].checked);
         }
         catch (e) {
             console.error(`クラス名: ${className} がチェックボックスではありません`);
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     chargeTime: getDataID.floatData("chargeTime"),  // チャージ時間
                     reloadTime: getDataID.floatData("reloadTime"),  // リロード時間
                     maxAmmo: getDataID.intData("maxAmmo"),  // 最大弾数
-                    stopMovement: getDataID.checkBoxData("stopMovement"),  // 足を止めるかどうか
+                    stopMovement: getDataID.intData("stopMovement"),  // 足を止めるかどうか
                     initialPosition: {
                         x: getDataClass.numberDataFloat('initialPosition', 0),
                         y: getDataClass.numberDataFloat('initialPosition', 1),
