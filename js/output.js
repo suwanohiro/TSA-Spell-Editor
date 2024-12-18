@@ -103,6 +103,15 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!formData.get(field.id)) missing = true;
 
             if (missing) {
+                try {
+
+                    const isCheckBox = document.getElementById(field.id).type === "checkbox";
+                    if (isCheckBox) missing = false;
+                } catch (e) {
+                }
+            }
+
+            if (missing) {
                 const classArray = document.getElementsByClassName(field.id);
 
                 for (let cnt = 0; cnt < classArray.length; cnt++) {
